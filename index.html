@@ -268,6 +268,7 @@
 
   .stripe {
     grid-area: stripe;
+    position: relative;
     display: flex;
     gap: 2px;
     align-items: flex-end;
@@ -277,10 +278,64 @@
     width: 5px;
     border-radius: 1px;
     background: var(--line);
+    cursor: default;
   }
   .stripe .bar.up { background: var(--up); opacity: 0.85; }
   .stripe .bar.degraded { background: var(--degraded); }
   .stripe .bar.down { background: var(--down); }
+
+  /* ---- Day tooltip (popover custom, não usa title nativo) ---- */
+  .day-tooltip {
+    position: fixed;
+    z-index: 50;
+    min-width: 220px;
+    max-width: 280px;
+    background: var(--bg-raised);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12), 0 2px 6px rgba(0, 0, 0, 0.06);
+    padding: 0.85rem 1rem;
+    pointer-events: none;
+    opacity: 0;
+    transform: translateY(4px);
+    transition: opacity 0.12s ease, transform 0.12s ease;
+  }
+  .day-tooltip.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .day-tooltip .tt-date {
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--ink);
+    margin: 0 0 0.5rem;
+  }
+  .day-tooltip .tt-row {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.82rem;
+    color: var(--ink);
+  }
+  .day-tooltip .tt-dot {
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 50%;
+    flex: none;
+  }
+  .day-tooltip .tt-dot.up { background: var(--up); }
+  .day-tooltip .tt-dot.degraded { background: var(--degraded); }
+  .day-tooltip .tt-dot.down { background: var(--down); }
+  .day-tooltip .tt-duration {
+    margin-left: auto;
+    font-family: var(--mono);
+    font-variant-numeric: tabular-nums;
+    color: var(--ink-soft);
+  }
+  .day-tooltip .tt-empty {
+    font-size: 0.8rem;
+    color: var(--ink-soft);
+  }
 
   /* ---- Incident history ---- */
   .incidents-head {
@@ -426,6 +481,8 @@
     </footer>
   </div>
 
+  <div class="day-tooltip" id="day-tooltip" role="tooltip"></div>
+
 <script>
   const DATA_URL = "https://raw.githubusercontent.com/resilisevenn/sevenn-status/main/history/summary.json";
   const ISSUES_URL = "https://api.github.com/repos/resilisevenn/sevenn-status/issues?state=all&per_page=15";
@@ -451,17 +508,26 @@
   function buildStripe(site, period) {
     // dailyMinutesDown é um mapa {data: minutos-fora}; a janela de dias
     // exibida cresce com o período selecionado (24h mostra menos, 1a mostra mais).
+    // Dias sem entrada no mapa (key ausente) significam "sem dado de queda
+    // registrado" — tratamos como operacional, mas sinalizamos hasData:false
+    // para o tooltip não afirmar algo que não sabemos ("No downtime recorded").
     const days = PERIOD_STRIPE_DAYS[period];
     const downMap = site.dailyMinutesDown || {};
     const dates = Object.keys(downMap).sort();
+    const today = new Date();
     const bars = [];
     for (let i = 0; i < days; i++) {
       const key = dates[dates.length - (days - i)];
-      const minutesDown = key ? downMap[key] : 0;
+      const hasData = Boolean(key);
+      const minutesDown = hasData ? downMap[key] : 0;
       let state = "up";
       if (minutesDown > 60) state = "down";
       else if (minutesDown > 0) state = "degraded";
-      bars.push({ state, date: key });
+
+      // Sem a chave real, aproximamos a data pela posição na janela (mais
+      // recente = hoje), só para exibição no tooltip.
+      const date = key ?? new Date(today.getTime() - (days - i) * 86400000).toISOString().slice(0, 10);
+      bars.push({ state, date, minutesDown, hasData });
     }
     return bars;
   }
@@ -471,10 +537,9 @@
     const uptime = site[`uptime${period}`] ?? site.uptime ?? "—";
     const time = site[`time${period}`] ?? site.time;
     const bars = buildStripe(site, period)
-      .map(({ state: s, date }) => {
+      .map(({ state: s, date, minutesDown, hasData }) => {
         const height = s === "up" ? 100 : s === "degraded" ? 60 : 30;
-        const title = date ? `${date}: ${stateLabel[s]}` : "sem dados";
-        return `<span class="bar ${s}" style="height:${height}%" title="${title}"></span>`;
+        return `<span class="bar ${s}" style="height:${height}%" data-date="${date}" data-minutes-down="${minutesDown}" data-has-data="${hasData}" data-state="${s}" tabindex="0"></span>`;
       })
       .join("");
 
@@ -511,6 +576,94 @@
     renderGlobal(latestSites, currentPeriod);
     document.getElementById("services").innerHTML =
       latestSites.map((site) => renderService(site, currentPeriod)).join("");
+  }
+
+  const DAY_STATE_LABEL = { up: "Operacional", degraded: "Degradação parcial", down: "Indisponibilidade" };
+
+  function formatDayLong(dateStr) {
+    // "2026-07-07" -> "7 Jul 2026" (estilo Claude/Vercel status)
+    const [y, m, d] = dateStr.split("-").map(Number);
+    const date = new Date(y, m - 1, d);
+    return date.toLocaleDateString("pt-BR", { day: "numeric", month: "short", year: "numeric" })
+      .replace(/\.$/, "").replace(/^\w/, (c) => c.toUpperCase());
+  }
+
+  function formatDuration(minutes) {
+    const h = Math.floor(minutes / 60);
+    const m = Math.round(minutes % 60);
+    if (h === 0) return `${m} min`;
+    if (m === 0) return `${h} h`;
+    return `${h}h ${m}min`;
+  }
+
+  function setupDayTooltip() {
+    const tooltip = document.getElementById("day-tooltip");
+    let activeBar = null;
+
+    function fill(bar) {
+      const { date, minutesDown, hasData, state } = bar.dataset;
+      const minutes = Number(minutesDown);
+      const dateLabel = formatDayLong(date);
+
+      if (!hasData || hasData === "false" || minutes === 0) {
+        tooltip.innerHTML = `
+          <p class="tt-date">${dateLabel}</p>
+          <p class="tt-empty">Nenhuma indisponibilidade registrada neste dia.</p>
+        `;
+        return;
+      }
+
+      tooltip.innerHTML = `
+        <p class="tt-date">${dateLabel}</p>
+        <div class="tt-row">
+          <span class="tt-dot ${state}"></span>
+          <span>${DAY_STATE_LABEL[state] ?? "Instabilidade"}</span>
+          <span class="tt-duration">${formatDuration(minutes)}</span>
+        </div>
+      `;
+    }
+
+    function position(bar) {
+      const barRect = bar.getBoundingClientRect();
+      const ttRect = tooltip.getBoundingClientRect();
+      let left = barRect.left + barRect.width / 2 - ttRect.width / 2;
+      left = Math.max(8, Math.min(left, window.innerWidth - ttRect.width - 8));
+      let top = barRect.top - ttRect.height - 10;
+      if (top < 8) top = barRect.bottom + 10; // sem espaço acima, exibe abaixo
+      tooltip.style.left = `${left}px`;
+      tooltip.style.top = `${top}px`;
+    }
+
+    function show(bar) {
+      activeBar = bar;
+      fill(bar);
+      tooltip.classList.add("visible");
+      // precisa medir depois do conteúdo entrar no DOM para posicionar certo
+      requestAnimationFrame(() => position(bar));
+    }
+
+    function hide() {
+      activeBar = null;
+      tooltip.classList.remove("visible");
+    }
+
+    document.addEventListener("pointerover", (ev) => {
+      const bar = ev.target.closest(".stripe .bar");
+      if (bar) show(bar);
+    });
+    document.addEventListener("pointerout", (ev) => {
+      const bar = ev.target.closest(".stripe .bar");
+      if (bar && bar === activeBar) hide();
+    });
+    document.addEventListener("focusin", (ev) => {
+      const bar = ev.target.closest(".stripe .bar");
+      if (bar) show(bar);
+    });
+    document.addEventListener("focusout", (ev) => {
+      const bar = ev.target.closest(".stripe .bar");
+      if (bar && bar === activeBar) hide();
+    });
+    window.addEventListener("scroll", () => { if (activeBar) position(activeBar); }, { passive: true });
   }
 
   function setupPeriodTabs() {
@@ -582,6 +735,7 @@
   }
 
   setupPeriodTabs();
+  setupDayTooltip();
   load();
   loadIncidents();
   setInterval(load, 60000);
