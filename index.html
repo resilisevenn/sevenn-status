@@ -154,6 +154,57 @@
   }
   .global-status.state-down .dot { background: var(--down); }
 
+  /* ---- Period selector ---- */
+  .period-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 1.1rem;
+  }
+
+  .period-label {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+  }
+
+  .period-tabs {
+    display: inline-flex;
+    gap: 2px;
+    padding: 3px;
+    background: var(--bg-raised);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+  }
+
+  .period-tabs button {
+    appearance: none;
+    border: none;
+    background: transparent;
+    color: var(--ink-soft);
+    font-family: var(--mono);
+    font-size: 0.76rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    padding: 0.35rem 0.7rem;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.15s ease, color 0.15s ease;
+  }
+
+  .period-tabs button:hover {
+    color: var(--ink);
+  }
+
+  .period-tabs button[aria-pressed="true"] {
+    background: var(--accent);
+    color: var(--bg-raised);
+  }
+
   /* ---- Services list ---- */
   .services {
     display: flex;
@@ -278,6 +329,16 @@
       <span id="global-status-text">Carregando status…</span>
     </div>
 
+    <div class="period-bar">
+      <span class="period-label">Período</span>
+      <div class="period-tabs" id="period-tabs" role="tablist" aria-label="Selecionar período de disponibilidade">
+        <button type="button" data-period="Day" aria-pressed="false">24h</button>
+        <button type="button" data-period="Week" aria-pressed="true">7d</button>
+        <button type="button" data-period="Month" aria-pressed="false">30d</button>
+        <button type="button" data-period="Year" aria-pressed="false">1a</button>
+      </div>
+    </div>
+
     <section class="services" id="services" aria-label="Lista de serviços monitorados">
       <p class="loading">Buscando dados de disponibilidade…</p>
     </section>
@@ -293,17 +354,26 @@
 
   const stateLabel = { up: "Operacional", degraded: "Instável", down: "Fora do ar" };
 
-  function classify(site) {
+  // Quantos dias do histórico diário (dailyMinutesDown) mostrar na faixa de
+  // pulso, por período selecionado. 24h ainda usa dias (é a granularidade
+  // que o Upptime grava), mas exibe uma janela mais curta e recente.
+  const PERIOD_STRIPE_DAYS = { Day: 7, Week: 14, Month: 30, Year: 90 };
+  const PERIOD_TITLE = { Day: "últimas 24 horas", Week: "últimos 7 dias", Month: "últimos 30 dias", Year: "último ano" };
+
+  let currentPeriod = "Week";
+  let latestSites = [];
+
+  function classify(site, period) {
     if (site.status === "down") return "down";
-    const uptime = parseFloat(site.uptimeDay ?? site.uptime ?? "100");
+    const uptime = parseFloat(site[`uptime${period}`] ?? site.uptime ?? "100");
     if (site.status === "up" && uptime < 99.5) return "degraded";
-    return site.status === "up" ? "up" : "down";
+    return "up";
   }
 
-  function buildStripe(site) {
-    // dailyMinutesDown é um mapa {data: minutos-fora}; usamos os últimos ~20 dias
-    // disponíveis (ou preenchemos "up" quando não há dado) como um pulso de saúde.
-    const days = 20;
+  function buildStripe(site, period) {
+    // dailyMinutesDown é um mapa {data: minutos-fora}; a janela de dias
+    // exibida cresce com o período selecionado (24h mostra menos, 1a mostra mais).
+    const days = PERIOD_STRIPE_DAYS[period];
     const downMap = site.dailyMinutesDown || {};
     const dates = Object.keys(downMap).sort();
     const bars = [];
@@ -313,17 +383,21 @@
       let state = "up";
       if (minutesDown > 60) state = "down";
       else if (minutesDown > 0) state = "degraded";
-      bars.push(state);
+      bars.push({ state, date: key });
     }
     return bars;
   }
 
-  function renderService(site) {
-    const state = classify(site);
-    const uptime = site.uptimeDay ?? site.uptime ?? "—";
-    const time = site.timeDay ?? site.time;
-    const bars = buildStripe(site)
-      .map((s) => `<span class="bar ${s}" style="height:${s === 'up' ? 100 : s === 'degraded' ? 60 : 30}%"></span>`)
+  function renderService(site, period) {
+    const state = classify(site, period);
+    const uptime = site[`uptime${period}`] ?? site.uptime ?? "—";
+    const time = site[`time${period}`] ?? site.time;
+    const bars = buildStripe(site, period)
+      .map(({ state: s, date }) => {
+        const height = s === "up" ? 100 : s === "degraded" ? 60 : 30;
+        const title = date ? `${date}: ${stateLabel[s]}` : "sem dados";
+        return `<span class="bar ${s}" style="height:${height}%" title="${title}"></span>`;
+      })
       .join("");
 
     return `
@@ -341,27 +415,44 @@
     `;
   }
 
-  function renderGlobal(sites) {
+  function renderGlobal(sites, period) {
     const el = document.getElementById("global-status");
     const text = document.getElementById("global-status-text");
-    const anyDown = sites.some((s) => classify(s) === "down");
-    const anyDegraded = sites.some((s) => classify(s) === "degraded");
+    const anyDown = sites.some((s) => classify(s, period) === "down");
+    const anyDegraded = sites.some((s) => classify(s, period) === "degraded");
     let state = "up";
     let label = "Todos os serviços operacionais";
     if (anyDown) { state = "down"; label = "Um ou mais serviços estão fora do ar"; }
-    else if (anyDegraded) { state = "degraded"; label = "Desempenho degradado em algum serviço"; }
+    else if (anyDegraded) { state = "degraded"; label = `Desempenho degradado (${PERIOD_TITLE[period]})`; }
     el.className = `global-status state-${state}`;
     text.textContent = label;
+  }
+
+  function renderAll() {
+    if (!latestSites.length) return;
+    renderGlobal(latestSites, currentPeriod);
+    document.getElementById("services").innerHTML =
+      latestSites.map((site) => renderService(site, currentPeriod)).join("");
+  }
+
+  function setupPeriodTabs() {
+    const tabs = document.getElementById("period-tabs");
+    tabs.addEventListener("click", (ev) => {
+      const btn = ev.target.closest("button[data-period]");
+      if (!btn) return;
+      currentPeriod = btn.dataset.period;
+      tabs.querySelectorAll("button").forEach((b) => b.setAttribute("aria-pressed", String(b === btn)));
+      renderAll();
+    });
   }
 
   async function load() {
     try {
       const res = await fetch(DATA_URL, { cache: "no-store" });
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
-      const sites = await res.json();
+      latestSites = await res.json();
 
-      renderGlobal(sites);
-      document.getElementById("services").innerHTML = sites.map(renderService).join("");
+      renderAll();
       document.getElementById("last-updated").textContent =
         "Última verificação: " + new Date().toLocaleString("pt-BR", { dateStyle: "short", timeStyle: "short" });
     } catch (err) {
@@ -371,6 +462,7 @@
     }
   }
 
+  setupPeriodTabs();
   load();
   setInterval(load, 60000);
 </script>
