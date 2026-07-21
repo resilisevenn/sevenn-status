@@ -1,0 +1,31 @@
+# Change these first
+owner: resilisevenn
+repo: sevenn-status
+
+sites:
+  - name: App Frontend
+    url: https://app.sevennclinic360.com   # AJUSTAR para a URL real de produção
+    method: GET
+    expectedStatusCodes:
+      - 200
+
+  - name: Edge Functions (health)
+    url: https://SEU_PROJETO.supabase.co/functions/v1/health   # AJUSTAR: trocar SEU_PROJETO pelo ref do projeto Supabase
+    method: GET
+    expectedStatusCodes:
+      - 200
+
+status-website:
+  # Domínio próprio: crie um CNAME no DNS apontando para resilisevenn.github.io
+  cname: status.sevennclinic360.com
+  name: Sevenn Clinic 360 — Status
+  introTitle: "Status dos serviços Sevenn Clinic 360"
+  introMessage: Acompanhe em tempo real a disponibilidade dos serviços do Sevenn Clinic 360.
+  navbar:
+    - title: Status
+      href: /
+    - title: Site
+      href: https://sevennclinic360.com
+
+# Upptime também suporta notificações, atribuição de issues, e mais
+# Ver https://upptime.js.org/docs/configuration
