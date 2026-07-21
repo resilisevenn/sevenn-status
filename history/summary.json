@@ -23,16 +23,18 @@
     "icon": "https://icons.duckduckgo.com/ip3/degdbpstlcrmpibtqwiy.supabase.co.ico",
     "slug": "edge-functions-health",
     "status": "down",
-    "uptime": "100.00%",
-    "uptimeDay": "100.00%",
-    "uptimeWeek": "100.00%",
-    "uptimeMonth": "100.00%",
-    "uptimeYear": "100.00%",
+    "uptime": "62.83%",
+    "uptimeDay": "62.83%",
+    "uptimeWeek": "62.83%",
+    "uptimeMonth": "62.83%",
+    "uptimeYear": "62.83%",
     "time": 82,
     "timeDay": 82,
     "timeWeek": 82,
     "timeMonth": 82,
     "timeYear": 82,
-    "dailyMinutesDown": {}
+    "dailyMinutesDown": {
+      "2026-07-21": 0
+    }
   }
 ]
