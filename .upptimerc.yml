@@ -10,7 +10,7 @@ sites:
       - 200
 
   - name: Edge Functions (health)
-    url: https://SEU_PROJETO.supabase.co/functions/v1/health   # AJUSTAR: trocar SEU_PROJETO pelo ref do projeto Supabase
+    url: https://degdbpstlcrmpibtqwiy.supabase.co/functions/v1/health
     method: GET
     expectedStatusCodes:
       - 200
