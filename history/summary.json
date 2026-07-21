@@ -10,11 +10,11 @@
     "uptimeWeek": "100.00%",
     "uptimeMonth": "100.00%",
     "uptimeYear": "100.00%",
-    "time": 558,
-    "timeDay": 558,
-    "timeWeek": 558,
-    "timeMonth": 558,
-    "timeYear": 558,
+    "time": 746,
+    "timeDay": 746,
+    "timeWeek": 746,
+    "timeMonth": 746,
+    "timeYear": 746,
     "dailyMinutesDown": {}
   },
   {
@@ -23,18 +23,16 @@
     "icon": "https://icons.duckduckgo.com/ip3/degdbpstlcrmpibtqwiy.supabase.co.ico",
     "slug": "edge-functions-health",
     "status": "up",
-    "uptime": "4.32%",
-    "uptimeDay": "4.32%",
-    "uptimeWeek": "4.32%",
-    "uptimeMonth": "4.32%",
-    "uptimeYear": "4.32%",
-    "time": 125,
-    "timeDay": 125,
-    "timeWeek": 125,
-    "timeMonth": 125,
-    "timeYear": 125,
-    "dailyMinutesDown": {
-      "2026-07-21": 5
-    }
+    "uptime": "100.00%",
+    "uptimeDay": "100.00%",
+    "uptimeWeek": "100.00%",
+    "uptimeMonth": "100.00%",
+    "uptimeYear": "100.00%",
+    "time": 229,
+    "timeDay": 229,
+    "timeWeek": 229,
+    "timeMonth": 229,
+    "timeYear": 229,
+    "dailyMinutesDown": {}
   }
 ]
