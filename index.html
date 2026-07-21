@@ -1,26 +1,378 @@
-<!DOCTYPE html> <html lang=en> <head> <meta charset=utf-8> <meta content="width=device-width,initial-scale=1" name=viewport> <meta content=#333333 name=theme-color> <base href=/ > <link href=manifest.json rel=manifest crossorigin=use-credentials> <script>__SAPPER__={baseUrl:"",preloaded:[void 0,{}]};if('serviceWorker' in navigator)navigator.serviceWorker.register('/service-worker.js');(function(){try{eval("async function x(){}");var main="/client/client.bff2c8f4.js"}catch(e){main="/client/legacy/client.faa1ab78.js"};var s=document.createElement("script");try{new Function("if(0)import('')")();s.src=main;s.type="module";s.crossOrigin="use-credentials";}catch(e){s.src="/client/shimport@2.0.5.js";s.setAttribute("data-main",main);}document.head.appendChild(s);}());</script> <link href=client/client-31a52aa5.css rel=stylesheet><link href=client/createOctokit-a85f76c7.css rel=stylesheet><link href=client/index-b0b6455a.css rel=stylesheet> <title>Sevenn Clinic 360 — Status</title> <script>// If `prefers-color-scheme` is not supported, fall back to light mode.
-      // In this case, light.css will be downloaded with `highest` priority.
-      if (typeof window !== "undefined" && typeof document !== "undefined" && "matchMedia" in window && window.matchMedia('(prefers-color-scheme: dark)').media === 'not all') {
-        document.documentElement.style.display = 'none';
-        document.head.insertAdjacentHTML(
-          'beforeend',
-          '<link rel="stylesheet" href={`${config.path}/themes/light.css`} onload="document.documentElement.style.display = \'\'">',
-        );
-      } </script> <link href=https://status.sevennclinic360.com/themes/light.css rel=stylesheet media=(prefers-color-scheme:light)> <link href=https://status.sevennclinic360.com/themes/dark.css rel=stylesheet media=(prefers-color-scheme:dark)><link href=https://status.sevennclinic360.com/global.css rel=stylesheet><link href=https://raw.githubusercontent.com/upptime/upptime/master/assets/upptime-icon.svg rel=icon type=image/svg><link href=/logo-192.png rel=icon type=image/png> <link href=/client/client.bff2c8f4.js rel=modulepreload as=script crossorigin=use-credentials><link href=/client/client-31a52aa5.css rel=preload as=style><link href=/client/index.14d95cef.js rel=modulepreload as=script crossorigin=use-credentials><link href=/client/createOctokit.10e2e856.js rel=modulepreload as=script crossorigin=use-credentials><link href=/client/inject_styles.803b7e80.js rel=modulepreload as=script crossorigin=use-credentials><link href=/client/createOctokit-a85f76c7.css rel=preload as=style><link href=/client/index-b0b6455a.css rel=preload as=style></head> <body> <div id=sapper> <nav class=svelte-a08hsz><div class="svelte-a08hsz container"> <ul class=svelte-a08hsz><li><a href=/ class=svelte-a08hsz target=_self aria-current=page>Status</a> <li><a href=https://app.sevennclinic360.com class=svelte-a08hsz target=_self>Site</a> </li> </ul></div> </nav> <main class=container> <header class=svelte-ngkazm><h1>Status dos serviços Sevenn Clinic 360</h1> <p class="svelte-ngkazm lead">Acompanhe em tempo real a disponibilidade dos serviços do Sevenn Clinic 360.</header> <section class=svelte-8lnl4f><div class="svelte-68jxue loading"><svg class=svelte-68jxue height=38 stroke=#aaa width=38 xmlns=http://www.w3.org/2000/svg><g fill=none fill-rule=evenodd><g stroke-width=2 transform="translate(1 1)"><circle cx=18 cy=18 r=18 stroke-opacity=.5></circle><path d="M36 18c0-9.94-8.06-18-18-18"><animateTransform attributeName=transform dur=1s from="0 18 18" repeatCount=indefinite to="360 18 18" type=rotate></animateTransform></path></g></g></svg></div> </section> <section class=svelte-8lnl4f><div class="svelte-68jxue loading"><svg class=svelte-68jxue height=38 stroke=#aaa width=38 xmlns=http://www.w3.org/2000/svg><g fill=none fill-rule=evenodd><g stroke-width=2 transform="translate(1 1)"><circle cx=18 cy=18 r=18 stroke-opacity=.5></circle><path d="M36 18c0-9.94-8.06-18-18-18"><animateTransform attributeName=transform dur=1s from="0 18 18" repeatCount=indefinite to="360 18 18" type=rotate></animateTransform></path></g></g></svg></div> </section> <div class="svelte-fqsq6s f changed"><h2>Live Status</h2> <form class="svelte-fqsq6s f r"><div><input class=svelte-fqsq6s id=data_day name=d type=radio value=day><label class=svelte-fqsq6s for=data_day>24h</label></div> <div><input class=svelte-fqsq6s id=data_week name=d type=radio value=week checked><label class=svelte-fqsq6s for=data_week>7d</label></div> <div><input class=svelte-fqsq6s id=data_month name=d type=radio value=month><label class=svelte-fqsq6s for=data_month>30d</label></div> <div><input class=svelte-fqsq6s id=data_year name=d type=radio value=year><label class=svelte-fqsq6s for=data_year>1y</label></div> <div><input class=svelte-fqsq6s id=data_all name=d type=radio value=all><label class=svelte-fqsq6s for=data_all>all</label></div></form></div> <section class="svelte-fqsq6s live-status"><div class="svelte-68jxue loading"><svg class=svelte-68jxue height=38 stroke=#aaa width=38 xmlns=http://www.w3.org/2000/svg><g fill=none fill-rule=evenodd><g stroke-width=2 transform="translate(1 1)"><circle cx=18 cy=18 r=18 stroke-opacity=.5></circle><path d="M36 18c0-9.94-8.06-18-18-18"><animateTransform attributeName=transform dur=1s from="0 18 18" repeatCount=indefinite to="360 18 18" type=rotate></animateTransform></path></g></g></svg></div> </section> <section><div class="svelte-68jxue loading"><svg class=svelte-68jxue height=38 stroke=#aaa width=38 xmlns=http://www.w3.org/2000/svg><g fill=none fill-rule=evenodd><g stroke-width=2 transform="translate(1 1)"><circle cx=18 cy=18 r=18 stroke-opacity=.5></circle><path d="M36 18c0-9.94-8.06-18-18-18"><animateTransform attributeName=transform dur=1s from="0 18 18" repeatCount=indefinite to="360 18 18" type=rotate></animateTransform></path></g></g></svg></div> </section> <section><div class="svelte-68jxue loading"><svg class=svelte-68jxue height=38 stroke=#aaa width=38 xmlns=http://www.w3.org/2000/svg><g fill=none fill-rule=evenodd><g stroke-width=2 transform="translate(1 1)"><circle cx=18 cy=18 r=18 stroke-opacity=.5></circle><path d="M36 18c0-9.94-8.06-18-18-18"><animateTransform attributeName=transform dur=1s from="0 18 18" repeatCount=indefinite to="360 18 18" type=rotate></animateTransform></path></g></g></svg></div></section></main> <footer class=svelte-jbr799><p>This page is <a href=https://github.com/resilisevenn/sevenn-status>open source</a>, powered by <a href=https://upptime.js.org>Upptime</a></p> </footer></div> <script> try {
-        if (typeof window !== "undefined" && window.navigator && navigator.serviceWorker) {
-          navigator.serviceWorker.getRegistrations().then(function (registrations) {
-            for (let registration of registrations) {
-              registration.unregister();
-            }
-          });
-        }
-        if (typeof window !== "undefined" && "caches" in window) {
-          caches.keys().then(function (keyList) {
-            return Promise.all(
-              keyList.map(function (key) {
-                return caches.delete(key);
-              })
-            );
-          });
-        }
-      } catch (error) {} </script> 
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Sevenn Clinic 360 — Status</title>
+<meta name="description" content="Disponibilidade em tempo real dos serviços do Sevenn Clinic 360." />
+<style>
+  :root {
+    --bg: #f7faf9;
+    --bg-raised: #ffffff;
+    --ink: #12211d;
+    --ink-soft: #4b615c;
+    --line: #d9e4e0;
+    --accent: #1c7c54;
+    --accent-soft: #e3f3ea;
+    --up: #1c7c54;
+    --degraded: #b8842e;
+    --degraded-soft: #fbf1de;
+    --down: #c1442e;
+    --down-soft: #fbe9e5;
+    --mono: "SFMono-Regular", "JetBrains Mono", Consolas, "Liberation Mono", Menlo, monospace;
+    --serif: Iowan, "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+    --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0b1210;
+      --bg-raised: #121b18;
+      --ink: #e7f1ed;
+      --ink-soft: #93a8a2;
+      --line: #24332e;
+      --accent: #3fbf8a;
+      --accent-soft: #14231d;
+      --up: #3fbf8a;
+      --degraded: #d6a256;
+      --degraded-soft: #2a2015;
+      --down: #e2685a;
+      --down-soft: #2a1714;
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --bg: #0b1210;
+    --bg-raised: #121b18;
+    --ink: #e7f1ed;
+    --ink-soft: #93a8a2;
+    --line: #24332e;
+    --accent: #3fbf8a;
+    --accent-soft: #14231d;
+    --up: #3fbf8a;
+    --degraded: #d6a256;
+    --degraded-soft: #2a2015;
+    --down: #e2685a;
+    --down-soft: #2a1714;
+  }
+
+  :root[data-theme="light"] {
+    --bg: #f7faf9;
+    --bg-raised: #ffffff;
+    --ink: #12211d;
+    --ink-soft: #4b615c;
+    --line: #d9e4e0;
+    --accent: #1c7c54;
+    --accent-soft: #e3f3ea;
+    --up: #1c7c54;
+    --degraded: #b8842e;
+    --degraded-soft: #fbf1de;
+    --down: #c1442e;
+    --down-soft: #fbe9e5;
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--sans);
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+  }
+
+  .wrap {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 4rem 1.5rem 6rem;
+  }
+
+  header.page-head {
+    margin-bottom: 2.5rem;
+  }
+
+  .eyebrow {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin: 0 0 0.6rem;
+  }
+
+  h1 {
+    font-family: var(--serif);
+    font-weight: 500;
+    font-size: clamp(1.7rem, 4vw, 2.35rem);
+    line-height: 1.15;
+    margin: 0 0 0.5rem;
+    text-wrap: balance;
+    color: var(--ink);
+  }
+
+  .lede {
+    font-size: 0.98rem;
+    color: var(--ink-soft);
+    margin: 0;
+    max-width: 46ch;
+  }
+
+  /* ---- Global status banner ---- */
+  .global-status {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem 1.25rem;
+    border-radius: 999px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    margin-bottom: 2.75rem;
+    border: 1px solid transparent;
+  }
+  .global-status .dot {
+    width: 0.6rem;
+    height: 0.6rem;
+    border-radius: 50%;
+    flex: none;
+  }
+  .global-status.state-up {
+    background: var(--accent-soft);
+    color: var(--up);
+    border-color: color-mix(in srgb, var(--up) 25%, transparent);
+  }
+  .global-status.state-up .dot { background: var(--up); }
+  .global-status.state-degraded {
+    background: var(--degraded-soft);
+    color: var(--degraded);
+    border-color: color-mix(in srgb, var(--degraded) 30%, transparent);
+  }
+  .global-status.state-degraded .dot { background: var(--degraded); }
+  .global-status.state-down {
+    background: var(--down-soft);
+    color: var(--down);
+    border-color: color-mix(in srgb, var(--down) 30%, transparent);
+  }
+  .global-status.state-down .dot { background: var(--down); }
+
+  /* ---- Services list ---- */
+  .services {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    border-top: 1px solid var(--line);
+  }
+
+  .service-row {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-areas:
+      "name stripe"
+      "meta stripe";
+    align-items: center;
+    gap: 0.2rem 1.5rem;
+    padding: 1.35rem 0.25rem;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .service-name-row {
+    grid-area: name;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+
+  .state-chip {
+    font-family: var(--mono);
+    font-size: 0.66rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 0.18rem 0.5rem;
+    border-radius: 4px;
+    font-weight: 600;
+  }
+  .state-chip.state-up { background: var(--accent-soft); color: var(--up); }
+  .state-chip.state-degraded { background: var(--degraded-soft); color: var(--degraded); }
+  .state-chip.state-down { background: var(--down-soft); color: var(--down); }
+
+  .service-name {
+    font-size: 1.02rem;
+    font-weight: 600;
+    color: var(--ink);
+  }
+
+  .service-meta {
+    grid-area: meta;
+    display: flex;
+    gap: 1.1rem;
+    font-family: var(--mono);
+    font-variant-numeric: tabular-nums;
+    font-size: 0.78rem;
+    color: var(--ink-soft);
+  }
+
+  .service-meta .metric b {
+    color: var(--ink);
+    font-weight: 600;
+  }
+
+  .stripe {
+    grid-area: stripe;
+    display: flex;
+    gap: 2px;
+    align-items: flex-end;
+    height: 34px;
+  }
+  .stripe .bar {
+    width: 5px;
+    border-radius: 1px;
+    background: var(--line);
+  }
+  .stripe .bar.up { background: var(--up); opacity: 0.85; }
+  .stripe .bar.degraded { background: var(--degraded); }
+  .stripe .bar.down { background: var(--down); }
+
+  footer.page-foot {
+    margin-top: 3rem;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    font-size: 0.8rem;
+    color: var(--ink-soft);
+  }
+  footer.page-foot a {
+    color: var(--ink-soft);
+    text-decoration: underline;
+    text-decoration-color: var(--line);
+    text-underline-offset: 3px;
+  }
+  footer.page-foot a:hover { color: var(--accent); }
+
+  .loading, .error-state {
+    font-family: var(--mono);
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+    padding: 2rem 0;
+  }
+
+  a:focus-visible, button:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; animation: none !important; }
+  }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="page-head">
+      <p class="eyebrow">Sevenn Clinic 360</p>
+      <h1>Status dos serviços</h1>
+      <p class="lede">Disponibilidade em tempo real do CRM e da infraestrutura de backend, atualizado a cada poucos minutos.</p>
+    </header>
+
+    <div id="global-status" class="global-status" role="status">
+      <span class="dot"></span>
+      <span id="global-status-text">Carregando status…</span>
+    </div>
+
+    <section class="services" id="services" aria-label="Lista de serviços monitorados">
+      <p class="loading">Buscando dados de disponibilidade…</p>
+    </section>
+
+    <footer class="page-foot">
+      <span id="last-updated"></span>
+      <a href="https://github.com/resilisevenn/sevenn-status" target="_blank" rel="noopener">Histórico completo no GitHub</a>
+    </footer>
+  </div>
+
+<script>
+  const DATA_URL = "https://raw.githubusercontent.com/resilisevenn/sevenn-status/main/history/summary.json";
+
+  const stateLabel = { up: "Operacional", degraded: "Instável", down: "Fora do ar" };
+
+  function classify(site) {
+    if (site.status === "down") return "down";
+    const uptime = parseFloat(site.uptimeDay ?? site.uptime ?? "100");
+    if (site.status === "up" && uptime < 99.5) return "degraded";
+    return site.status === "up" ? "up" : "down";
+  }
+
+  function buildStripe(site) {
+    // dailyMinutesDown é um mapa {data: minutos-fora}; usamos os últimos ~20 dias
+    // disponíveis (ou preenchemos "up" quando não há dado) como um pulso de saúde.
+    const days = 20;
+    const downMap = site.dailyMinutesDown || {};
+    const dates = Object.keys(downMap).sort();
+    const bars = [];
+    for (let i = 0; i < days; i++) {
+      const key = dates[dates.length - (days - i)];
+      const minutesDown = key ? downMap[key] : 0;
+      let state = "up";
+      if (minutesDown > 60) state = "down";
+      else if (minutesDown > 0) state = "degraded";
+      bars.push(state);
+    }
+    return bars;
+  }
+
+  function renderService(site) {
+    const state = classify(site);
+    const uptime = site.uptimeDay ?? site.uptime ?? "—";
+    const time = site.timeDay ?? site.time;
+    const bars = buildStripe(site)
+      .map((s) => `<span class="bar ${s}" style="height:${s === 'up' ? 100 : s === 'degraded' ? 60 : 30}%"></span>`)
+      .join("");
+
+    return `
+      <div class="service-row">
+        <div class="service-name-row">
+          <span class="service-name">${site.name}</span>
+          <span class="state-chip state-${state}">${stateLabel[state]}</span>
+        </div>
+        <div class="service-meta">
+          <span class="metric">uptime <b>${uptime}</b></span>
+          <span class="metric">resposta <b>${time ?? "—"}ms</b></span>
+        </div>
+        <div class="stripe" aria-hidden="true">${bars}</div>
+      </div>
+    `;
+  }
+
+  function renderGlobal(sites) {
+    const el = document.getElementById("global-status");
+    const text = document.getElementById("global-status-text");
+    const anyDown = sites.some((s) => classify(s) === "down");
+    const anyDegraded = sites.some((s) => classify(s) === "degraded");
+    let state = "up";
+    let label = "Todos os serviços operacionais";
+    if (anyDown) { state = "down"; label = "Um ou mais serviços estão fora do ar"; }
+    else if (anyDegraded) { state = "degraded"; label = "Desempenho degradado em algum serviço"; }
+    el.className = `global-status state-${state}`;
+    text.textContent = label;
+  }
+
+  async function load() {
+    try {
+      const res = await fetch(DATA_URL, { cache: "no-store" });
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const sites = await res.json();
+
+      renderGlobal(sites);
+      document.getElementById("services").innerHTML = sites.map(renderService).join("");
+      document.getElementById("last-updated").textContent =
+        "Última verificação: " + new Date().toLocaleString("pt-BR", { dateStyle: "short", timeStyle: "short" });
+    } catch (err) {
+      document.getElementById("services").innerHTML =
+        `<p class="error-state">Não foi possível carregar os dados de status agora. Tente novamente em instantes.</p>`;
+      document.getElementById("global-status-text").textContent = "Status indisponível no momento";
+    }
+  }
+
+  load();
+  setInterval(load, 60000);
+</script>
+</body>
+</html>
