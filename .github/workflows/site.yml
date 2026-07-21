@@ -31,7 +31,10 @@ jobs:
   release:
     name: Build and deploy site
     runs-on: ubuntu-latest
-    if: "!contains(github.event.head_commit.message, '[skip ci]')"
+    # Desativado: usamos uma página de status própria em gh-pages (ver commit
+    # "design: página de status própria"). Este job geraria o template padrão
+    # do Upptime e sobrescreveria nossa página no próximo cron/push.
+    if: false
     steps:
       - name: Checkout
         uses: actions/checkout@v6

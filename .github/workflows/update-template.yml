@@ -28,6 +28,10 @@ jobs:
   release:
     name: Build
     runs-on: ubuntu-latest
+    # Desativado: esse job regeneraria site.yml (que também desativamos) e
+    # reintroduziria o build automático do template padrão do Upptime,
+    # sobrescrevendo nossa página de status própria em gh-pages.
+    if: false
     steps:
       - name: Checkout
         uses: actions/checkout@v6
