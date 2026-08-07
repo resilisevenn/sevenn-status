@@ -4,14 +4,21 @@ repo: sevenn-status
 
 sites:
   - name: App Frontend
-    url: https://app.sevennclinic360.com   # AJUSTAR para a URL real de produção
+    url: https://app.sevennclinic360.com
     method: GET
+    # Se não responder em 30s, considera fora do ar e segue para o próximo check.
+    # Sem isso, um endpoint pendurado trava o job inteiro até o timeout de 15min
+    # do Upptime, o que impede a checagem dos demais sites e gera um e-mail
+    # "workflow cancelled" em vez do alerta correto de "down".
+    # Incidente de 2026-08-06 (runs Uptime CI #221 e #222, 15min cravados).
+    maxResponseTime: 30000
     expectedStatusCodes:
       - 200
 
   - name: Edge Functions (health)
     url: https://degdbpstlcrmpibtqwiy.supabase.co/functions/v1/health
     method: GET
+    maxResponseTime: 30000
     expectedStatusCodes:
       - 200
 
