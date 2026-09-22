@@ -50,6 +50,38 @@ sites:
     expectedStatusCodes:
       - 200
 
+  # Os 3 workers rodam no EasyPanel, fora do Supabase. Cada um expõe /health na
+  # porta 3001, protegido por x-health-token (sem o header responde 404, para não
+  # revelar a rota). O critério é loop girando E banco alcançável: até 22/set dois
+  # deles se diziam saudáveis só por o loop girar, e passaram o incidente de 21/set
+  # repetindo "upstream request timeout" enquanto reportavam "ok".
+  - name: Worker — Automações
+    url: https://sevenn-front-sevenn-automation-worker.0bio7m.easypanel.host/health
+    method: GET
+    maxResponseTime: 30000
+    headers:
+      - "x-health-token: $HEALTH_CHECK_TOKEN"
+    expectedStatusCodes:
+      - 200
+
+  - name: Worker — Motor de Workflow
+    url: https://sevenn-front-sevenn-workflow-engine-worker.0bio7m.easypanel.host/health
+    method: GET
+    maxResponseTime: 30000
+    headers:
+      - "x-health-token: $HEALTH_CHECK_TOKEN"
+    expectedStatusCodes:
+      - 200
+
+  - name: Worker — Sincronização WhatsApp
+    url: https://sevenn-front-wpp-sync-worker.0bio7m.easypanel.host/health
+    method: GET
+    maxResponseTime: 30000
+    headers:
+      - "x-health-token: $HEALTH_CHECK_TOKEN"
+    expectedStatusCodes:
+      - 200
+
 status-website:
   # Domínio próprio: crie um CNAME no DNS apontando para resilisevenn.github.io
   cname: status.sevennclinic360.com
