@@ -15,10 +15,38 @@ sites:
     expectedStatusCodes:
       - 200
 
+  # ATENÇÃO: este check NÃO toca no banco — só confirma que a infra de Edge
+  # Functions responde. Mantido separado do "Banco de dados" de propósito: com
+  # os dois, o histórico distingue "Edge Functions fora" de "Postgres fora".
   - name: Edge Functions (health)
     url: https://degdbpstlcrmpibtqwiy.supabase.co/functions/v1/health
     method: GET
     maxResponseTime: 30000
+    expectedStatusCodes:
+      - 200
+
+  # Executa um SELECT 1 real no Postgres (RPC health_check, migration 190) e
+  # devolve 503 se falhar ou passar de 8s.
+  # POR QUE EXISTE: em 21/set/2026 o Postgres caiu por OOM e ficou ~35min
+  # inacessível — e esta página ficou VERDE o tempo todo, porque os dois checks
+  # que existiam eram justamente os que não quebraram (o frontend servia HTML
+  # normalmente e o /health devolve JSON fixo sem consultar nada).
+  - name: Banco de dados
+    url: https://degdbpstlcrmpibtqwiy.supabase.co/functions/v1/health-db
+    method: GET
+    maxResponseTime: 30000
+    expectedStatusCodes:
+      - 200
+
+  # O /auth/v1/token dava 504 e deslogava usuários no mesmo incidente.
+  # O header apikey é OBRIGATÓRIO: sem ele o endpoint devolve 401 (testado em
+  # 22/set/2026), o que marcaria "down" falso permanente.
+  - name: Autenticação
+    url: https://degdbpstlcrmpibtqwiy.supabase.co/auth/v1/health
+    method: GET
+    maxResponseTime: 30000
+    headers:
+      - "apikey: $SUPABASE_ANON_KEY"
     expectedStatusCodes:
       - 200
 
