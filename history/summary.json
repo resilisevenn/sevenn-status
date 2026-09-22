@@ -34,5 +34,41 @@
     "timeMonth": 198,
     "timeYear": 211,
     "dailyMinutesDown": {}
+  },
+  {
+    "name": "Banco de dados",
+    "url": "https://degdbpstlcrmpibtqwiy.supabase.co/functions/v1/health-db",
+    "icon": "https://icons.duckduckgo.com/ip3/degdbpstlcrmpibtqwiy.supabase.co.ico",
+    "slug": "banco-de-dados",
+    "status": "up",
+    "uptime": "100.00%",
+    "uptimeDay": "100.00%",
+    "uptimeWeek": "100.00%",
+    "uptimeMonth": "100.00%",
+    "uptimeYear": "100.00%",
+    "time": 1356,
+    "timeDay": 1356,
+    "timeWeek": 1356,
+    "timeMonth": 1356,
+    "timeYear": 1356,
+    "dailyMinutesDown": {}
+  },
+  {
+    "name": "Autenticação",
+    "url": "https://degdbpstlcrmpibtqwiy.supabase.co/auth/v1/health",
+    "icon": "https://icons.duckduckgo.com/ip3/degdbpstlcrmpibtqwiy.supabase.co.ico",
+    "slug": "autenticacao",
+    "status": "up",
+    "uptime": "100.00%",
+    "uptimeDay": "100.00%",
+    "uptimeWeek": "100.00%",
+    "uptimeMonth": "100.00%",
+    "uptimeYear": "100.00%",
+    "time": 244,
+    "timeDay": 244,
+    "timeWeek": 244,
+    "timeMonth": 244,
+    "timeYear": 244,
+    "dailyMinutesDown": {}
   }
 ]
