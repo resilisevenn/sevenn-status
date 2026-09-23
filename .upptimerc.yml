@@ -82,6 +82,24 @@ sites:
     expectedStatusCodes:
       - 200
 
+  # Servidor da uazapi, por onde passa todo o WhatsApp do produto.
+  #
+  # Monitora o SERVIDOR, não as instâncias de cada clínica — decisão de 23/set/2026.
+  # Esta página é pública e vista por clientes de todas as clínicas: "instância da
+  # Clínica X caiu" viraria alarme falso para as outras e exporia nome de cliente.
+  # Queda de instância individual já avisa o superadmin por WhatsApp
+  # (admin_whatsapp_alerts, aba Monitoramento) — que é o canal de quem age.
+  #
+  # /status é público (sem token) e reflete a saúde do servidor: devolve 200 mesmo
+  # havendo instância desconectada. Só cai quando afeta todo mundo, que é o
+  # critério certo para esta página.
+  - name: Integração WhatsApp
+    url: https://sevennclinic360.uazapi.com/status
+    method: GET
+    maxResponseTime: 30000
+    expectedStatusCodes:
+      - 200
+
 status-website:
   # Domínio próprio: crie um CNAME no DNS apontando para resilisevenn.github.io
   cname: status.sevennclinic360.com
