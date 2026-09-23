@@ -124,5 +124,23 @@
     "timeMonth": 453,
     "timeYear": 453,
     "dailyMinutesDown": {}
+  },
+  {
+    "name": "Integração WhatsApp",
+    "url": "https://sevennclinic360.uazapi.com/status",
+    "icon": "https://icons.duckduckgo.com/ip3/sevennclinic360.uazapi.com.ico",
+    "slug": "integracao-whats-app",
+    "status": "up",
+    "uptime": "100.00%",
+    "uptimeDay": "100.00%",
+    "uptimeWeek": "100.00%",
+    "uptimeMonth": "100.00%",
+    "uptimeYear": "100.00%",
+    "time": 466,
+    "timeDay": 466,
+    "timeWeek": 466,
+    "timeMonth": 466,
+    "timeYear": 466,
+    "dailyMinutesDown": {}
   }
 ]
