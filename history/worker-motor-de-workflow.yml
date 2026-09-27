@@ -1,7 +1,7 @@
 url: https://sevenn-front-sevenn-workflow-engine-worker.0bio7m.easypanel.host/health
-status: up
-code: 200
-responseTime: 474
-lastUpdated: 2026-09-22T21:26:43.910Z
+status: down
+code: 0
+responseTime: 0
+lastUpdated: 2026-09-27T17:15:56.592Z
 startTime: 2026-09-22T21:26:43.435Z
 generator: Upptime <https://github.com/upptime/upptime>
