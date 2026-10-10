@@ -76,19 +76,20 @@
     "url": "https://sevenn-front-sevenn-automation-worker.0bio7m.easypanel.host/health",
     "icon": "https://icons.duckduckgo.com/ip3/sevenn-front-sevenn-automation-worker.0bio7m.easypanel.host.ico",
     "slug": "worker-automacoes",
-    "status": "up",
-    "uptime": "99.29%",
-    "uptimeDay": "100.00%",
-    "uptimeWeek": "100.00%",
-    "uptimeMonth": "99.29%",
-    "uptimeYear": "99.29%",
+    "status": "down",
+    "uptime": "99.27%",
+    "uptimeDay": "99.31%",
+    "uptimeWeek": "99.90%",
+    "uptimeMonth": "99.27%",
+    "uptimeYear": "99.27%",
     "time": 621,
     "timeDay": 675,
     "timeWeek": 641,
     "timeMonth": 621,
     "timeYear": 621,
     "dailyMinutesDown": {
-      "2026-09-27": 176
+      "2026-09-27": 176,
+      "2026-10-10": 10
     }
   },
   {
@@ -96,10 +97,10 @@
     "url": "https://sevenn-front-sevenn-workflow-engine-worker.0bio7m.easypanel.host/health",
     "icon": "https://icons.duckduckgo.com/ip3/sevenn-front-sevenn-workflow-engine-worker.0bio7m.easypanel.host.ico",
     "slug": "worker-motor-de-workflow",
-    "status": "up",
+    "status": "down",
     "uptime": "99.31%",
-    "uptimeDay": "100.00%",
-    "uptimeWeek": "100.00%",
+    "uptimeDay": "99.65%",
+    "uptimeWeek": "99.95%",
     "uptimeMonth": "99.31%",
     "uptimeYear": "99.31%",
     "time": 623,
@@ -108,7 +109,8 @@
     "timeMonth": 623,
     "timeYear": 623,
     "dailyMinutesDown": {
-      "2026-09-27": 171
+      "2026-09-27": 171,
+      "2026-10-10": 5
     }
   },
   {
@@ -116,19 +118,20 @@
     "url": "https://sevenn-front-wpp-sync-worker.0bio7m.easypanel.host/health",
     "icon": "https://icons.duckduckgo.com/ip3/sevenn-front-wpp-sync-worker.0bio7m.easypanel.host.ico",
     "slug": "worker-sincronizacao-whats-app",
-    "status": "up",
-    "uptime": "99.33%",
-    "uptimeDay": "100.00%",
+    "status": "down",
+    "uptime": "99.35%",
+    "uptimeDay": "99.99%",
     "uptimeWeek": "100.00%",
-    "uptimeMonth": "99.33%",
-    "uptimeYear": "99.33%",
+    "uptimeMonth": "99.35%",
+    "uptimeYear": "99.35%",
     "time": 611,
     "timeDay": 663,
     "timeWeek": 633,
     "timeMonth": 611,
     "timeYear": 611,
     "dailyMinutesDown": {
-      "2026-09-27": 166
+      "2026-09-27": 166,
+      "2026-10-10": 0
     }
   },
   {
